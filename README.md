@@ -59,7 +59,7 @@ Flask and Flask-RESTx libraries
 
 ### Server
 
-Clone the repository:
+<b> Clone the repository:</b>
 
 1. git clone https://github.com/roy845/BonDataURLShortener/tree/main
 2. cd server
@@ -79,11 +79,15 @@ Clone the repository:
 
 7. <b>Run the application:</b>
 
-python app.py
+   python app.py
 
-8.  <b>Access the API documentation at:</b>
+8. <b>Access the API documentation at:</b>
 
-http://localhost:5001/api/docs
+   http://localhost:5001/api/docs
+
+<b> OR </b>
+
+while in the server directory type the command docker-compose up and it will spin the backend api and the database together
 
 ### Client
 
