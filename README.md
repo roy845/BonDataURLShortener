@@ -71,7 +71,7 @@ Flask and Flask-RESTx libraries
 5. <b>Install dependencies:</b>
    pip install -r requirements.txt
 
-6. <b>Prepare .env file with the following fields:</b>
+6. <b>Prepare .env file with the following fields and put it in the server directory:</b>
 
    DATABASE_TEST_URL=
    POSTGRES_PASSWORD=
@@ -87,7 +87,7 @@ Flask and Flask-RESTx libraries
 
 <b> OR </b>
 
-while in the server directory type the command docker-compose up and it will spin the backend api and the database together
+while in the server directory type the command docker-compose up and it will spin the backend api and the database together BUT make sure you did step 6.
 
 ### Client
 
