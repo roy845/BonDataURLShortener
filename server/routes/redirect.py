@@ -11,7 +11,7 @@ class RedirectURL(Resource):
         try:
             original_url = RedirectService.get_original_url(short_code)
             if original_url:
-                return redirect(original_url, code=302)
+                return redirect(original_url, code=HTTPStatus.FOUND)
             return {"message": "URL not found"}, HTTPStatus.NOT_FOUND
         
         except Exception as e:
