@@ -7,6 +7,8 @@ export type ResponseData = {
   short_code: string;
 };
 
+export type CopyStatus = "success" | "error" | null;
+
 export type UseUrlShortenerReturn = {
   url: string;
   setUrl: React.Dispatch<React.SetStateAction<string>>;
@@ -15,4 +17,9 @@ export type UseUrlShortenerReturn = {
   loading: boolean;
   reset: () => void;
   handleSubmit: (event: React.FormEvent) => void;
+};
+
+export type UseCopyToClipboardReturn = {
+  copyStatus: CopyStatus;
+  copyToClipboard: (text: string) => Promise<void>;
 };
