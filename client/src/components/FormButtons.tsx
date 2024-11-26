@@ -3,7 +3,10 @@ interface FormButtonsProps {
   onReset: () => void;
 }
 
-const FormButtons = ({ onSubmitDisabled, onReset }: FormButtonsProps) => (
+const FormButtons = ({
+  onSubmitDisabled,
+  onReset,
+}: FormButtonsProps): JSX.Element => (
   <div className="flex space-x-4">
     <button
       type="submit"

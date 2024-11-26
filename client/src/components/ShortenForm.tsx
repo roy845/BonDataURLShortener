@@ -3,7 +3,7 @@ import FormInput from "./FormInput";
 import FormButtons from "./FormButtons";
 import ResponseMessage from "./ResponseMessage";
 
-const ShortenForm: React.FC = () => {
+const ShortenForm = (): JSX.Element => {
   const { url, setUrl, response, error, loading, reset, handleSubmit } =
     useUrlShortener();
 

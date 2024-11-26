@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import ShortenForm from "./components/ShortenForm";
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       <Header title="URL Shortener" />

@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ResponseData } from "../types/types";
+import { ResponseData, UseUrlShortenerReturn } from "../types/types";
 import { shortenUrl } from "../services/api";
 import { Utils } from "../utils/utils";
 
-const useUrlShortener = () => {
+const useUrlShortener = (): UseUrlShortenerReturn => {
   const [url, setUrl] = useState<string>("");
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const shorten = async () => {
+  let errorMsg: string = "";
+
+  const shorten = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     setResponse(null);
 
     if (!url) {
-      const errorMsg = "Please enter a URL.";
+      errorMsg = "Please enter a URL.";
       setError(errorMsg);
       toast.error(errorMsg);
       setLoading(false);
@@ -25,7 +27,7 @@ const useUrlShortener = () => {
     }
 
     if (!Utils.isValidUrl(url)) {
-      const errorMsg = "Please enter a valid URL.";
+      errorMsg = "Please enter a valid URL.";
       setError(errorMsg);
       toast.error(errorMsg);
       setLoading(false);
@@ -33,11 +35,11 @@ const useUrlShortener = () => {
     }
 
     try {
-      const result = await shortenUrl({ url });
+      const result: ResponseData = await shortenUrl({ url });
       setResponse(result);
       toast.success("URL shortened successfully!");
     } catch (err: any) {
-      const errorMsg = err.message || "An unexpected error occurred.";
+      errorMsg = err.message || "An unexpected error occurred.";
       setError(errorMsg);
       toast.error(errorMsg);
     } finally {
@@ -45,12 +47,12 @@ const useUrlShortener = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     shorten();
   };
 
-  const reset = () => {
+  const reset = (): void => {
     setUrl("");
     setResponse(null);
     setError(null);

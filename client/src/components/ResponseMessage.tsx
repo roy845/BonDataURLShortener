@@ -3,7 +3,10 @@ interface ResponseMessageProps {
   error?: string | null;
 }
 
-const ResponseMessage = ({ response, error }: ResponseMessageProps) => {
+const ResponseMessage = ({
+  response,
+  error,
+}: ResponseMessageProps): JSX.Element | null => {
   if (response) {
     return (
       <div className="mt-6 p-4 bg-green-100 border border-green-400 rounded-md">
