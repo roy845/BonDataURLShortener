@@ -1,7 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from middlewares.validate_request_data import validate_request_data
-from utils.validations import Validations
 from services.shorten_service import ShortenService
 from http import HTTPStatus
 
