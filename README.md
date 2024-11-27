@@ -2,6 +2,18 @@
 
 A simple URL shortener application built with Flask and Flask-RESTx. This application allows users to submit a long URL and receive a shortened version. The shortened URL can then redirect users back to the original URL.
 
+## LIVE Deploy In React.ts And Flask (May take a minute or less to load)
+
+<img src="https://www.svgrepo.com/show/316501/arrow-down-small.svg" width='260px' height='260px'/>
+
+https://server-bonexapi.onrender.com/
+
+## Swagger Docs (Server Documentation) (May take a minute or less to load)
+
+<img src="https://www.svgrepo.com/show/316501/arrow-down-small.svg" width='260px' height='260px'/>
+
+https://server-bonexapi.onrender.com/api/docs
+
 ## Features
 
 ### Core Features

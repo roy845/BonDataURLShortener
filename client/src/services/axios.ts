@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-const IS_PROD: boolean = false;
+const IS_PROD: boolean = true;
 let API_URL: string = "/api/";
 
 if (IS_PROD) {

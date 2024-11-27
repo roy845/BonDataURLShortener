@@ -13,14 +13,14 @@ if __name__ == '__main__':
 
     @app.route('/')
     def index():
-        return {"message":"hello world"}
-        # path = os.path.join(os.getcwd(), 'build')
-        # return send_from_directory(directory=path, path='index.html')
+        # return {"message":"hello world"}
+        path = os.path.join(os.getcwd(), 'build')
+        return send_from_directory(directory=path, path='index.html')
 
-    # @app.route('/static/<folder>/<file>')
-    # def serve_static(folder, file):
-    #     path = os.path.join('build', 'static', folder, file)
-    #     return send_from_directory(directory=os.path.dirname(path), path=os.path.basename(path))
+    @app.route('/static/<folder>/<file>')
+    def serve_static(folder, file):
+        path = os.path.join('build', 'static', folder, file)
+        return send_from_directory(directory=os.path.dirname(path), path=os.path.basename(path))
 
     app.run(host="0.0.0.0", debug=True, port=5001)
 

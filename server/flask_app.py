@@ -24,9 +24,9 @@ def create_app():
 
     create_database(database_url, database_name)
 
-    # app = Flask(__name__,static_folder='build', static_url_path='')
+    app = Flask(__name__,static_folder='build', static_url_path='')
 
-    app = Flask(__name__)
+    # app = Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = settings.database_test_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = settings.sqlalchemy_track_modifications
