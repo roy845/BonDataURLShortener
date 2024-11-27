@@ -8,8 +8,8 @@ class Validations:
 
     @staticmethod
     def validate_request_fields(data):
-        if set(data.keys()) != {'url'}:
-            raise ValueError("Invalid fields in request. Only 'url' is allowed.")
+        if set(data.keys()) != {'url','custom_slug'}:
+            raise ValueError("Invalid fields in request. Only 'url' and 'custom_slug' is allowed.")
         
     @staticmethod
     def validate_url_field(url):

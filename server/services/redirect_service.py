@@ -1,3 +1,4 @@
+from datetime import datetime
 from models.models import URL
 
 class RedirectService:
@@ -10,4 +11,11 @@ class RedirectService:
         :return: The original URL if found, otherwise None.
         """
         url_entry = URL.find_by_short_code(short_code)
-        return url_entry.original_url if url_entry else None
+        if url_entry:
+            # Update analytics
+            url_entry.access_count = (url_entry.access_count or 0) + 1
+            url_entry.last_accessed = datetime.now()
+            url_entry.save()
+            return url_entry.original_url
+
+        return None

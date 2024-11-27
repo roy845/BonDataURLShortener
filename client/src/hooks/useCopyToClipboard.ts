@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const useCopyToClipboard = (): UseCopyToClipboardReturn => {
   const [copyStatus, setCopyStatus] = useState<CopyStatus>(null);
 
-  const copyToClipboard = async (text: string) => {
+  const copyToClipboard = async (text: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(text);
       setCopyStatus("success");

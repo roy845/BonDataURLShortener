@@ -11,12 +11,15 @@ A simple URL shortener application built with Flask and Flask-RESTx. This applic
 
 ### Additional Features
 
-- API documentation available at `/api/docs`.
-  http://localhost:5001/api/docs/
 - Database integration (PostgreSQL)
 - Frontend Client with React.ts
 - Docker containerization
 - URL validation
+- Custom short URL slugs
+- Usage analytics
+- Rate limiting (10 requests per 1 minute to the shorten url endpoint (/api/shorten))
+- API documentation available at `/api/docs`.
+  http://localhost:5001/api/docs/
 
 ## Design Architecture: Controller, Service, and DAL Layers
 
@@ -24,7 +27,17 @@ To structure the URL shortener application with a clear separation of concerns, 
 
 ## Endpoints
 
-### 1. Shorten a URL
+### 1. Server Health
+
+    Returns a JSON response indicating the health status of the server, including the current UTC timestamp.
+
+- **Endpoint:** `GET /api/health`
+- **Response:**
+  <b>Success:</b> Server is healthy and running. (HTTP 200)
+
+### 2. Shorten a URL
+
+    Shortens a given long URL into a shorter version, with an optional custom slug.
 
 - **Endpoint**: `POST /api/shorten/`
 - **Request Body**:
@@ -34,19 +47,57 @@ To structure the URL shortener application with a clear separation of concerns, 
   }
   ```
 - **Response:**
+  <b>Success:</b> 201 (HTTP_CREATED) URL successfully shortened
   ```json
   {
     "short_url": "http://localhost:5000/redirect/abc123",
     "short_code": "abc123"
   }
   ```
+  <b>Error:</b>
+  - Returns 400 (HTTP_BAD_REQUEST) Invalid URL or custom slug provided
+  - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
 
-### 2. Redirect to Original URL
+### 3. Redirect to Original URL
 
-- **Endpoint:** GET /api/redirect/<short_code>
+    Redirect to the original URL based on the provided short code.
+
+- **Endpoint:** `GET /api/redirect/<short_code>`
 - **Response:**
-  <b>Success:</b> Redirects (HTTP 302) to the original URL.
-  <b>Error:</b> Returns 404 if the short code does not exist.
+  <b>Success:</b> Redirects (HTTP_FOUND 302) to the original URL.
+  <b>Error:</b>
+  - Returns 404 (HTTP_NOT_FOUND) if the short code does not exist.
+  - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
+
+### 4. Get All Short Codes List
+
+    Fetches all short codes and original URLS.
+
+- **Endpoint:** `GET /api/analytics/short-codes`
+- **Response:**
+  <b>Success:</b> List of all short codes and their original urls (HTTP_OK 200)
+  <b>Error:</b> Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
+
+### 5. Get Analytics Data per Short Code URL
+
+    Fetches usage analytics for a specific short URL.
+
+- **Endpoint:** `GET /api/analytics/<short_code>`
+- **Response:**
+
+  ```json
+  {
+    "original_url": "https://www.google.com/search?q=how+are+you+synonyms+slang&sca_esv=9752ad96db2cbf24&sxsrf=ADLYWIJkxX0227DWLaqaW-PrDOhpflqFkw%3A1732528437994&ei=NUlEZ5mxPJWukdUPyp_WgQ4&oq=How+are+you+synonyms&gs_lp=Egxnd3Mtd2l6LXNlcnAiFEhvdyBhcmUgeW91IHN5bm9ueW1zKgIIADIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzIKEAAYsAMY1gQYRzINEAAYgAQYsAMYQxiKBTINEAAYgAQYsAMYQxiKBUjQClAAWABwAngBkAEAmAEAoAEAqgEAuAEByAEAmAICoAIhmAMAiAYBkAYKkgcBMqAHAA&sclient=gws-wiz-serp",
+    "short_code": "izuero",
+    "access_count": 0,
+    "last_accessed": null
+  }
+  ```
+
+  <b>Error:</b>
+
+  - Returns 404 (HTTP_NOT_FOUND) Short URL not found.
+  - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
 
 ## Getting Started
 

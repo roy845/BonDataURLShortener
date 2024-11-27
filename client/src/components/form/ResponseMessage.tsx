@@ -1,5 +1,5 @@
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import useCopyToClipboard from "../hooks/useCopyToClipboard";
+import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 
 interface ResponseMessageProps {
   response?: string;
@@ -12,7 +12,7 @@ const ResponseMessage = ({
 }: ResponseMessageProps): JSX.Element | null => {
   const { copyStatus, copyToClipboard } = useCopyToClipboard();
 
-  const handleCopy = () => {
+  const handleCopy = (): void => {
     if (response) {
       copyToClipboard(response);
     }

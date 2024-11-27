@@ -7,6 +7,7 @@ import { Utils } from "../utils/utils";
 
 const useUrlShortener = (): UseUrlShortenerReturn => {
   const [url, setUrl] = useState<string>("");
+  const [customSlug, setCustomSlug] = useState<string>("");
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +36,10 @@ const useUrlShortener = (): UseUrlShortenerReturn => {
     }
 
     try {
-      const result: ResponseData = await shortenUrl({ url });
+      const result: ResponseData = await shortenUrl({
+        url,
+        custom_slug: customSlug || "",
+      });
       setResponse(result);
       toast.success("URL shortened successfully!");
     } catch (err: any) {
@@ -54,6 +58,7 @@ const useUrlShortener = (): UseUrlShortenerReturn => {
 
   const reset = (): void => {
     setUrl("");
+    setCustomSlug("");
     setResponse(null);
     setError(null);
     toast.info("Form has been reset.");
@@ -62,6 +67,8 @@ const useUrlShortener = (): UseUrlShortenerReturn => {
   return {
     url,
     setUrl,
+    customSlug,
+    setCustomSlug,
     response,
     error,
     loading,

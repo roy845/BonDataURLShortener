@@ -5,6 +5,8 @@ class URL(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     original_url = db.Column(db.String(2048), nullable=False)
     short_code = db.Column(db.String(6), unique=True, nullable=False,index=True)
+    access_count = db.Column(db.Integer, default=0)
+    last_accessed = db.Column(db.DateTime)
 
     def save(self) -> None:
         """
@@ -12,6 +14,10 @@ class URL(db.Model):
         """
         db.session.add(self)
         db.session.commit()
+    
+    @staticmethod
+    def get_all():
+        return URL.query.all()
 
     @staticmethod
     def find_by_short_code(short_code: str):

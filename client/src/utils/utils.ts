@@ -7,4 +7,6 @@ export class Utils {
       return false;
     }
   };
+
+  static hasNoData = <T>(data: T[]): boolean => data.length === 0;
 }
