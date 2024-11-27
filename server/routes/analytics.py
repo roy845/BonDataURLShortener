@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from flask_restx import Namespace, Resource
 from models.models import URL
+from services.analytics_service import AnalyticsService
 
 analytics_api = Namespace('analytics', description='Analytics operations')
 
@@ -15,11 +16,13 @@ class AllShortCodes(Resource):
         Handles the GET request to fetch all short codes and original URLs.
         """
         try:
-            urls = URL.get_all()
-            short_codes = [{"short_code": url.short_code, "original_url": url.original_url} for url in urls]
+            short_codes = AnalyticsService.get_all_short_codes()
             return short_codes, HTTPStatus.OK
+        
         except Exception as e:
             return {"message": "An unexpected error occurred"}, HTTPStatus.INTERNAL_SERVER_ERROR
+
+
 
 @analytics_api.route('/<string:short_code>')
 class URLAnalytics(Resource):
@@ -31,17 +34,10 @@ class URLAnalytics(Resource):
         Handles the GET request to fetch analytics data for a specific short code.
         """
         try:
-            url_entry = URL.find_by_short_code(short_code)
-            if not url_entry:
+            analytics_data = AnalyticsService.get_url_analytics(short_code)
+            if not analytics_data:
                 return {'message': 'Short URL not found'}, HTTPStatus.NOT_FOUND
-
-            analytics_data = {
-                'original_url': url_entry.original_url,
-                'short_code': url_entry.short_code,
-                'access_count': url_entry.access_count or 0,
-                'last_accessed': url_entry.last_accessed.isoformat() if url_entry.last_accessed else None
-            }
-
             return analytics_data, HTTPStatus.OK
+
         except Exception as e:
             return {'message': 'An unexpected error occurred'}, HTTPStatus.INTERNAL_SERVER_ERROR
