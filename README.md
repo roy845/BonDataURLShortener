@@ -69,7 +69,17 @@ To structure the URL shortener application with a clear separation of concerns, 
   - Returns 404 (HTTP_NOT_FOUND) if the short code does not exist.
   - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
 
-### 4. Get All Short Codes List
+### 4. Delete ALL Short Codes
+
+    Deletes all short codes from the database.
+
+- **Endpoint:** `Delete /api/analytics/short-codes`
+- **Response:**
+  <b>Success:</b> (HTTP_OK 200) All short codes deleted successfully.
+  <b>Error:</b>
+  - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
+
+### 5. Get All Short Codes List
 
     Fetches all short codes and original URLS.
 
@@ -78,7 +88,18 @@ To structure the URL shortener application with a clear separation of concerns, 
   <b>Success:</b> List of all short codes and their original urls (HTTP_OK 200)
   <b>Error:</b> Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
 
-### 5. Get Analytics Data per Short Code URL
+### 6. Delete specific Short Code
+
+    Deletes a specific short code from the database.
+
+- **Endpoint:** `Delete /api/analytics/<short_code>`
+- **Response:**
+  <b>Success:</b> (HTTP_OK 200) Short code deleted successfully.
+  <b>Error:</b>
+  - Returns 404 (HTTP_NOT_FOUND) Short URL not found.
+  - Returns 500 (INTERNAL_SERVER_ERROR) An unexpected error occurred.
+
+### 7. Get Analytics Data per Short Code URL
 
     Fetches usage analytics for a specific short URL.
 
