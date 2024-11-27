@@ -22,13 +22,6 @@ export type UseUrlShortenerReturn = {
   handleSubmit: (event: React.FormEvent) => void;
 };
 
-export type UseAllShortCodesReturn = {
-  loading: boolean;
-  error: string | null;
-  shortCodes: ShortCode[];
-  headers: string[];
-};
-
 export type UseConfirmResetReturn = {
   isModalOpen: boolean;
   confirmText: string;

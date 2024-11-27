@@ -6,6 +6,7 @@ interface ConfirmResetModalProps {
   isOpen: boolean;
   confirmText: string;
   isConfirmEnabled: boolean;
+  confirmationKeyword: string;
   onClose: () => void;
   onConfirm: () => void;
   onTextChange: (text: string) => void;
@@ -15,6 +16,7 @@ const ConfirmResetModal = ({
   isOpen,
   confirmText,
   isConfirmEnabled,
+  confirmationKeyword,
   onClose,
   onConfirm,
   onTextChange,
@@ -38,13 +40,13 @@ const ConfirmResetModal = ({
           <IoIosWarning size={24} className="text-yellow-500" />
         </h2>
         <p className="mb-4">
-          To confirm, type <strong>Reset Form</strong> below:
+          To confirm, type <strong>{confirmationKeyword}</strong> below:
         </p>
         <input
           type="text"
           value={confirmText}
           onChange={(e) => onTextChange(e.target.value)}
-          placeholder="Type Reset Form"
+          placeholder={`Type ${confirmationKeyword}`}
           className={`w-full px-3 py-2 mb-4 border rounded-md ${"bg-white border-gray-300 text-gray-900 placeholder-gray-500"}`}
         />
         <div className="flex justify-between">

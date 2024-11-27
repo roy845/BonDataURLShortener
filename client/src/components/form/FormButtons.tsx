@@ -46,6 +46,7 @@ const FormButtons = ({
         </button>
       )}
       <ConfirmResetModal
+        confirmationKeyword="Reset Form"
         isOpen={isModalOpen}
         confirmText={confirmText}
         isConfirmEnabled={isConfirmEnabled}
