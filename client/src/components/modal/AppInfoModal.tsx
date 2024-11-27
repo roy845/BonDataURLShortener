@@ -38,6 +38,9 @@ const AppInfoModal = () => {
             View analytics for your shortened URLs, including the number of
             clicks and the last accessed time.
           </li>
+          <li>Search by short_code</li>
+          <li>Delete short code</li>
+          <li>Delete ALL short codes</li>
         </ul>
         <div className="flex items-center mt-4">
           <input

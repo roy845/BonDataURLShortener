@@ -15,29 +15,34 @@ const useAllShortCodes = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [confirmText, setConfirmText] = useState<string>("");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [searchShortCodes, setSearchShortCodes] = useState<string>("");
 
   const confirmationKeyword = "Delete All Short Codes";
 
   const headers: string[] = ["Short Code", "Original URL", "Actions"];
 
-  const fetchShortCodes = async (keyword: string = ""): Promise<void> => {
-    setLoading(true);
-    try {
-      const data: ShortCode[] = await getAllShortCodes(keyword);
-      setShortCodes(data);
-      setLoading(false);
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred.");
-      setLoading(false);
-    }
-  };
-
   const debouncedSearch = useCallback(
     debounce((keyword: string) => {
-      fetchShortCodes(keyword);
+      setSearchShortCodes(keyword);
     }, 500),
     []
   );
+
+  useEffect(() => {
+    const fetchShortCodes = async (keyword: string = ""): Promise<void> => {
+      setLoading(true);
+      try {
+        const data: ShortCode[] = await getAllShortCodes(keyword);
+        setShortCodes(data);
+        setLoading(false);
+      } catch (err: any) {
+        setError(err.message || "An unexpected error occurred.");
+        setLoading(false);
+      }
+    };
+
+    fetchShortCodes(searchShortCodes);
+  }, [searchShortCodes]);
 
   useEffect(() => {
     debouncedSearch(searchKeyword);

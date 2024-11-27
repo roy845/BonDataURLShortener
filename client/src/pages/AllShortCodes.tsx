@@ -39,7 +39,7 @@ const AllShortCodes = (): JSX.Element => {
             setSearchKeyword={setSearchKeyword}
           />
 
-          {!Utils.hasNoData(shortCodes) && (
+          {!Utils.hasNoData(shortCodes) && !loading && (
             <Tooltip message="Delete All">
               <FaTrash
                 className="mr-2 cursor-pointer text-red-600"
@@ -57,18 +57,22 @@ const AllShortCodes = (): JSX.Element => {
         ) : Utils.hasNoData(shortCodes) ? (
           <NoResultsFound message="No short codes found." />
         ) : (
-          <DataTable
-            items={shortCodes}
-            headers={headers}
-            numOfHeaders={headers.length}
-            renderRow={(item, index) => (
-              <ShortCodeRow
-                code={item}
-                index={index}
-                deleteShortCode={deleteShortCode}
-              />
-            )}
-          />
+          <>
+            <strong>Total Items: </strong>
+            {shortCodes.length}
+            <DataTable
+              items={shortCodes}
+              headers={headers}
+              numOfHeaders={headers.length}
+              renderRow={(item, index) => (
+                <ShortCodeRow
+                  code={item}
+                  index={index}
+                  deleteShortCode={deleteShortCode}
+                />
+              )}
+            />
+          </>
         )}
       </div>
 

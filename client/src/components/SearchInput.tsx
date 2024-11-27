@@ -3,7 +3,10 @@ type SearchInputProps = {
   setSearchKeyword: (value: React.SetStateAction<string>) => void;
 };
 
-const SearchInput = ({ searchKeyword, setSearchKeyword }: SearchInputProps) => {
+const SearchInput = ({
+  searchKeyword,
+  setSearchKeyword,
+}: SearchInputProps): JSX.Element => {
   return (
     <input
       type="text"
