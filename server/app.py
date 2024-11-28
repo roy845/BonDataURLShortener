@@ -13,7 +13,6 @@ if __name__ == '__main__':
 
     @app.route('/')
     def index():
-        # return {"message":"hello world"}
         path = os.path.join(os.getcwd(), 'build')
         return send_from_directory(directory=path, path='index.html')
 
@@ -22,6 +21,10 @@ if __name__ == '__main__':
         path = os.path.join('build', 'static', folder, file)
         return send_from_directory(directory=os.path.dirname(path), path=os.path.basename(path))
 
+    @app.errorhandler(404)
+    def not_found(e):
+        return send_from_directory(app.static_folder, 'index.html')
+    
     app.run(host="0.0.0.0", debug=True, port=5001)
 
     logger.info('Flask application has stopped.')
